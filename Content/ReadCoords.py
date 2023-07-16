@@ -48,3 +48,5 @@ print(obj)
 if mode == 1:
     print('world')
 """
+
+#use find() method for the first occurrence of something
