@@ -1,4 +1,3 @@
-print('abc'[0])
 #Mode selection
 print('Select mode:')
 modestr = input()
@@ -41,39 +40,47 @@ while obj == None:
 
 
 #Set out lists
-vertexx = None
-vertexy = None
-vertexz  = None
-facevertices = None
-facemean = None
+vertexx = []
+vertexy = []
+vertexz  = []
+facevertices = []
+facemean = []
 
-#
-def findnth(instring,insubstring,index):
-    
-    
-    return()
+#Find index of nth occurrence in string
+def findnth(instring,insubstring,nthtofind):
+    runningindex = 0
+    while (instring[0:runningindex+1].count(insubstring) <= nthtofind) & (instring[0:runningindex+1].count(insubstring) < len(instring)):
+        runningindex += 1
+    return(runningindex)
 
-#
+#world mode appending
 if mode == 1:
     for objline in obj:
         try:
-            if (objline[0] == 'v') & (objline[1] == ' '):
-                print()
+            if objline[0:2] == 'v ':
+                vertexx.append(float(objline[findnth(objline,' ',0):findnth(objline,' ',1)+1]))
+                vertexy.append(float(objline[findnth(objline,' ',1):findnth(objline,' ',2)+1]))
+                vertexz.append(float(objline[findnth(objline,' ',2):]))
+            if objline[0:2] == 'f ':
+                for objfaceindex in range(objline.count(' ')):
+                    facevertices.append(int(objline))
         except:
             pass
-        
-    
+
+[findnth(objline,' ',objfaceindex):(objline[findnth(objline,' ',objfaceindex):]).find('\\')]
+
+findnth(objline,' ',objfaceindex)
 
 
 
 
+#Open cartesian file
+txtcartesion = open(__file__[0:__file__.rfind('\\')+1] + 'CoordinatesCartesian.txt', 'w')
 
+#Write to cartesian file
+txtcartesion.write(str(vertexx) + '\n')
+txtcartesion.write(str(vertexy) + '\n')
+txtcartesion.write(str(vertexz) + '\n')
+txtcartesion.write(str(facevertices))
 
-"""
-#Parsing
-#World Mode
-if mode == 1:
-    print('world')
-"""
-
-#use find() method for the first occurrence of something
+print(facevertices)
