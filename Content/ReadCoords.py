@@ -1,8 +1,7 @@
+print('abc'[0])
 #Mode selection
 print('Select mode:')
 modestr = input()
-
-mode = 0
 
 #Set int mode
 if modestr == 'world':
@@ -22,14 +21,13 @@ def tryopen():
     print('Select File:')
     inputobj = input()
     
-    if inputobj[1] == ':':
+    if inputobj[0:1] == __file__[0:1]:
         objstr = inputobj
     else:
         objstr = __file__[0:__file__.rfind('\\')+1] + inputobj
 
     try:
-        objname = open(objstr, 'r')
-        obj = objname.readlines()
+        obj = open(objstr, 'r')
         return(obj)
     except:
         print ('Failed to open file')
@@ -39,8 +37,37 @@ obj = tryopen()
 
 while obj == None:
     obj = tryopen()
+
+
+
+#Set out lists
+vertexx = None
+vertexy = None
+vertexz  = None
+facevertices = None
+facemean = None
+
+#
+def findnth(instring,insubstring,index):
     
-print(obj)
+    
+    return()
+
+#
+if mode == 1:
+    for objline in obj:
+        try:
+            if (objline[0] == 'v') & (objline[1] == ' '):
+                print()
+        except:
+            pass
+        
+    
+
+
+
+
+
 
 """
 #Parsing
