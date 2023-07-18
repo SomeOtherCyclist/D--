@@ -44,7 +44,9 @@ vertexx = []
 vertexy = []
 vertexz  = []
 facevertices = []
-facemean = []
+facemeanx = []
+facemeany = []
+facemeanz = []
 
 #Find index of nth occurrence in string
 def findnth(instring,insubstring,nthtofind):
@@ -54,33 +56,34 @@ def findnth(instring,insubstring,nthtofind):
     return(runningindex)
 
 #world mode appending
-if mode == 1:
-    for objline in obj:
-        try:
+for objline in obj:
+    try:
+        #Mode one coordinates
+        if mode == 1:
             if objline[0:2] == 'v ':
                 vertexx.append(float(objline[findnth(objline,' ',0):findnth(objline,' ',1)+1]))
                 vertexy.append(float(objline[findnth(objline,' ',1):findnth(objline,' ',2)+1]))
                 vertexz.append(float(objline[findnth(objline,' ',2):]))
-            if objline[0:2] == 'f ':
-                for objfaceindex in range(objline.count(' ')):
-                    facevertices.append(int(objline))
-        except:
+                
+        #Face vertex indices
+        if objline[0:2] == 'f ':
+            for objfaceindex in range(objline.count(' ')):
+                facevertices.append(int(objline[findnth(objline,' ',objfaceindex)+1:(objline[findnth(objline,' ',objfaceindex):]).find('/') + findnth(objline,' ',objfaceindex)]))
+    except:
+        pass
+
+#
+for objline in obj:
+    for facevertex in range(0,len(facevertices)/3-1):
+        for facevertexindex in range (0,2):
             pass
 
-[findnth(objline,' ',objfaceindex):(objline[findnth(objline,' ',objfaceindex):]).find('\\')]
-
-findnth(objline,' ',objfaceindex)
-
-
-
-
 #Open cartesian file
-txtcartesion = open(__file__[0:__file__.rfind('\\')+1] + 'CoordinatesCartesian.txt', 'w')
+txtcartesian = open(__file__[0:__file__.rfind('\\')+1] + 'CoordinatesCartesian.txt', 'w')
 
 #Write to cartesian file
-txtcartesion.write(str(vertexx) + '\n')
-txtcartesion.write(str(vertexy) + '\n')
-txtcartesion.write(str(vertexz) + '\n')
-txtcartesion.write(str(facevertices))
-
-print(facevertices)
+txtcartesian.write(str(mode) + '\n')
+txtcartesian.write(str(vertexx) + '\n')
+txtcartesian.write(str(vertexy) + '\n')
+txtcartesian.write(str(vertexz) + '\n')
+txtcartesian.write(str(facevertices))
