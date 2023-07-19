@@ -1,5 +1,5 @@
 #Imports
-import math as m
+import statistics as s
 
 #Mode selection
 print('Select mode:')
@@ -61,9 +61,9 @@ for objline in obj:
         #World mode coordinates
         if mode == 1:
             if objline[0:2] == 'v ':
-                vertexx.append(float(objline[findnth(objline,' ',0):findnth(objline,' ',1)+1]))
-                vertexy.append(float(objline[findnth(objline,' ',1):findnth(objline,' ',2)+1]))
-                vertexz.append(float(objline[findnth(objline,' ',2):]))
+                vertexx.append(round(float(objline[findnth(objline,' ',0):findnth(objline,' ',1)+1]),4))
+                vertexy.append(round(float(objline[findnth(objline,' ',1):findnth(objline,' ',2)+1]),4))
+                vertexz.append(round(float(objline[findnth(objline,' ',2):]),4))
                 
         #Face vertex indices
         if objline[0:2] == 'f ':
@@ -79,10 +79,16 @@ facemeanz = []
 
 #Face mean coordinates
 for facevertex in range(0,int(len(facevertices)/3)-1):
-        #for vertex in [vertexx,vertexy,vertexz]:
-    #vertexx.append(m.mean(vertexx[3 * facevertices[[0,1,2]+facevertex] - 1]))
-    #print(m.mean(vertexx[facevertices[facevertex] - 1],vertexx[facevertices[1 + facevertex] - 1],vertexx[facevertices[2 + facevertex] - 1]))
-    print(3 * facevertex)
+        facemeanx.append(round(s.mean([vertexx[facevertices[3 * facevertex] - 1], vertexx[facevertices[1 + 3 * facevertex] - 1], vertexx[facevertices[2 + 3 * facevertex] - 1]]),4))
+        #print(s.mean([vertexx[facevertices[3 * facevertex] - 1], vertexx[facevertices[1 + 3 * facevertex] - 1], vertexx[facevertices[2 + 3 * facevertex] - 1]]))
+
+for facevertex in range(0,int(len(facevertices)/3)-1):
+        facemeany.append(round(s.mean([vertexy[facevertices[3 * facevertex] - 1], vertexy[facevertices[1 + 3 * facevertex] - 1], vertexy[facevertices[2 + 3 * facevertex] - 1]]),4))
+        #print(s.mean([vertexy[facevertices[3 * facevertex] - 1], vertexy[facevertices[1 + 3 * facevertex] - 1], vertexy[facevertices[2 + 3 * facevertex] - 1]]))
+
+for facevertex in range(0,int(len(facevertices)/3)-1):
+        facemeanz.append(round(s.mean([vertexz[facevertices[3 * facevertex] - 1], vertexz[facevertices[1 + 3 * facevertex] - 1], vertexz[facevertices[2 + 3 * facevertex] - 1]]),4))
+        #print(s.mean([vertexz[facevertices[3 * facevertex] - 1], vertexz[facevertices[1 + 3 * facevertex] - 1], vertexz[facevertices[2 + 3 * facevertex] - 1]]))
             
 #Set out A-A lists
 vertexr = []
