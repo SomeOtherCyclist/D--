@@ -1,3 +1,6 @@
+#Imports
+import math as m
+
 #Mode selection
 print('Select mode:')
 modestr = input()
@@ -44,9 +47,6 @@ vertexx = []
 vertexy = []
 vertexz  = []
 facevertices = []
-facemeanx = []
-facemeany = []
-facemeanz = []
 
 #Find index of nth occurrence in string
 def findnth(instring,insubstring,nthtofind):
@@ -55,10 +55,10 @@ def findnth(instring,insubstring,nthtofind):
         runningindex += 1
     return(runningindex)
 
-#world mode appending
+#List appending
 for objline in obj:
     try:
-        #Mode one coordinates
+        #World mode coordinates
         if mode == 1:
             if objline[0:2] == 'v ':
                 vertexx.append(float(objline[findnth(objline,' ',0):findnth(objline,' ',1)+1]))
@@ -72,11 +72,25 @@ for objline in obj:
     except:
         pass
 
-#
-for objline in obj:
-    for facevertex in range(0,len(facevertices)/3-1):
-        for facevertexindex in range (0,2):
-            pass
+#Set up face mean lists
+facemeanx = []
+facemeany = []
+facemeanz = []
+
+#Face mean coordinates
+for facevertex in range(0,int(len(facevertices)/3)-1):
+        #for vertex in [vertexx,vertexy,vertexz]:
+    #vertexx.append(m.mean(vertexx[3 * facevertices[[0,1,2]+facevertex] - 1]))
+    #print(m.mean(vertexx[facevertices[facevertex] - 1],vertexx[facevertices[1 + facevertex] - 1],vertexx[facevertices[2 + facevertex] - 1]))
+    print(3 * facevertex)
+            
+#Set out A-A lists
+vertexr = []
+vertext = []
+vertexa = []
+
+#for n in range (1):
+#    pass
 
 #Open cartesian file
 txtcartesian = open(__file__[0:__file__.rfind('\\')+1] + 'CoordinatesCartesian.txt', 'w')
@@ -86,4 +100,9 @@ txtcartesian.write(str(mode) + '\n')
 txtcartesian.write(str(vertexx) + '\n')
 txtcartesian.write(str(vertexy) + '\n')
 txtcartesian.write(str(vertexz) + '\n')
-txtcartesian.write(str(facevertices))
+txtcartesian.write(str(facevertices) + '\n')
+txtcartesian.write(str(facemeanx) + '\n')
+txtcartesian.write(str(facemeany) + '\n')
+txtcartesian.write(str(facemeanz) + '\n')
+
+#print('p=p_{ren}\left(\left[\right],\left[\right],\left[\right]\right)')
